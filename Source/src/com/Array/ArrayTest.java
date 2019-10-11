@@ -21,7 +21,12 @@ public class ArrayTest {
 
         list.remove(0);
 
+        ArrayList<Person> list2 = new ArrayList<>();
+        list2.add(new Person(12,"Hell"));
+        list2.add(new Person(13,"Worl"));
+        list2.add(new Person(14,"CCC"));
 
         System.out.println(list);
+        System.out.println(list2);
     }
 }
