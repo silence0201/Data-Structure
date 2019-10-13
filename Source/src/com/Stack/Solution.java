@@ -1,9 +1,19 @@
 package com.Stack;
 
+import java.util.HashMap;
+
 /**
  * Created by silence on 2019/10/13.
  */
 public class Solution {
+
+    private HashMap<Character,Character> map = new HashMap<>();
+
+    public Solution() {
+        map.put('(',')');
+        map.put('[',']');
+        map.put('{','}');
+    }
 
     public boolean isValid(String s) {
         int length = s.length();
@@ -16,14 +26,12 @@ public class Solution {
 
             char c = s.charAt(i);
 
-            if (c == '(' || c == '[' || c == '{') {
+            if (map.containsKey(c)) {
                 stack.push(s.charAt(i));
             } else {
                 if (stack.isEmpty()) return false;
                 char left = stack.pop();
-                if (left == '(' &&  c != ')') return false;
-                if (left == '{' &&  c != '}') return false;
-                if (left == '[' &&  c != ']') return false;
+                if (map.get(left) != c) return false;
             }
         }
         return stack.isEmpty();
