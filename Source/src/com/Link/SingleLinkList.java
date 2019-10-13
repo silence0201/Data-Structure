@@ -1,8 +1,8 @@
 package com.Link;
 
-public class LinkList<E> extends AbstractList<E> {
+public class SingleLinkList<E> extends AbstractList<E> {
 
-    private LinkList.Node<E> first;
+    private Node<E> first;
 
 
     @Override

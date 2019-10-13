@@ -2,7 +2,7 @@ package com.Link;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> list1 = new LinkList<>();
+        List<Integer> list1 = new SingleLinkList<>();
 
         list1.add(10);
         list1.add(20);
