@@ -1,12 +1,15 @@
 package com.Tree;
 
 
+import com.Tree.printer.BinaryTreeInfo;
+import com.Tree.printer.Printer;
+
 import java.util.Comparator;
 
 /**
  * Created by silence on 2019/10/15.
  */
-public class BinarySearchTree<E> {
+public class BinarySearchTree<E> implements BinaryTreeInfo {
 
     private int size;
     private Node<E> root;
@@ -94,6 +97,26 @@ public class BinarySearchTree<E> {
             return  comparator.compare(e1,e2);
         }
         return ((Comparable<E>)e1).compareTo(e2);
+    }
+
+    @Override
+    public Object root() {
+        return root;
+    }
+
+    @Override
+    public Object left(Object node) {
+        return ((Node<E>)node).left;
+    }
+
+    @Override
+    public Object right(Object node) {
+        return ((Node<E>)node).right;
+    }
+
+    @Override
+    public Object string(Object node) {
+        return ((Node<E>)node).element;
     }
 
     public static class Node<E> {

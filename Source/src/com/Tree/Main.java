@@ -1,5 +1,7 @@
 package com.Tree;
 
+import com.Tree.printer.BinaryTrees;
+
 import java.util.Comparator;
 
 /**
@@ -8,12 +10,14 @@ import java.util.Comparator;
 public class Main {
     public static void main(String[] args) {
 
-        Integer data[] = new Integer[] { 7,4,9,2,5,8,11,3 } ;
+        Integer data[] = new Integer[] { 7,4,9,2,5,8,11,3,12,1 } ;
 
         BinarySearchTree<Integer> bst = new BinarySearchTree<>();
         for (Integer num : data) {
             bst.add(num);
         }
+
+        BinaryTrees.println(bst);
 
         BinarySearchTree<Person> bst2 = new BinarySearchTree<>(new Comparator<Person>() {
             @Override
