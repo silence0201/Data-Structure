@@ -19,12 +19,28 @@ public class Main {
 
         BinaryTrees.println(bst);
 
+        System.out.println("------------------------------------------------------------------------------");
+
         BinarySearchTree<Person> bst2 = new BinarySearchTree<>(new Comparator<Person>() {
             @Override
             public int compare(Person o1, Person o2) {
                 return o1.getAge() - o2.getAge();
             }
         });
+
+        bst2.add(new Person(22,"Jekl"));
+        bst2.add(new Person(33,"JKel"));
+        bst2.add(new Person(42,"Jekl"));
+        bst2.add(new Person(12,"Jekl"));
+        bst2.add(new Person(15,"Jekl"));
+        bst2.add(new Person(13,"JKel"));
+        bst2.add(new Person(17,"JKel"));
+        bst2.add(new Person(62,"Jekl"));
+        bst2.add(new Person(73,"JKel"));
+        bst2.add(new Person(53,"JKel"));
+
+
+        BinaryTrees.println(bst2);
 
 
     }

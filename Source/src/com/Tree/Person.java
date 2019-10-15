@@ -25,6 +25,7 @@ public class Person implements Comparable<Person>{
         this.name = name;
     }
 
+
     public Person(int age, String name) {
         this.age = age;
         this.name = name;
@@ -33,5 +34,13 @@ public class Person implements Comparable<Person>{
     @Override
     public int compareTo(Person person) {
         return age - person.age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "age=" + age +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
