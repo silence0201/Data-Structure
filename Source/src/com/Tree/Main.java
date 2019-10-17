@@ -1,7 +1,9 @@
 package com.Tree;
 
+import com.Tree.Files.Files;
 import com.Tree.printer.BinaryTrees;
 
+import java.io.File;
 import java.util.Comparator;
 
 /**
@@ -17,9 +19,37 @@ public class Main {
             bst.add(num);
         }
 
+
         BinaryTrees.println(bst);
 
         System.out.println("------------------------------------------------------------------------------");
+
+        bst.preorderTraversal();
+
+        System.out.println("------------------------------------------------------------------------------");
+
+        bst.inorderTraversal();
+
+        System.out.println("------------------------------------------------------------------------------");
+
+        bst.postorderTraversal();
+
+        System.out.println("------------------------------------------------------------------------------");
+
+        bst.levelOrderTranversal();
+
+        System.out.println("------------------------------------------------------------------------------");
+
+
+        final int[] count = {0};
+        bst.levelOrderTranversal(new BinarySearchTree.Visitor<Integer>() {
+            @Override
+            public boolean visit(Integer element) {
+                System.out.println("Vistor" + element);
+                count[0]++;
+                return count[0] == 4;
+            }
+        });
 
         BinarySearchTree<Person> bst2 = new BinarySearchTree<>(new Comparator<Person>() {
             @Override
@@ -42,6 +72,13 @@ public class Main {
 
         BinaryTrees.println(bst2);
 
+        System.out.println("------------------------------------------------------------------------------");
 
+        BinarySearchTree<Integer> bst4 = new BinarySearchTree<>();
+        for (int i = 0 ; i < 12 ; i++) {
+            bst4.add((int)(Math.random() * 100));
+        }
+
+        BinaryTrees.println(bst4);
     }
 }

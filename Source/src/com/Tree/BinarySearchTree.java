@@ -5,6 +5,8 @@ import com.Tree.printer.BinaryTreeInfo;
 import com.Tree.printer.Printer;
 
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by silence on 2019/10/15.
@@ -60,7 +62,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
             } else if (cmp < 0) {
                 node = node.left;
             } else {
-                continue;
+
             }
         }
 
@@ -77,9 +79,160 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
     }
 
 
+    // 前序遍历
+    public void preorderTraversal() {
+        preoederTraversal(root);
+    }
+
+    private void preoederTraversal(Node<E> node) {
+        if (node == null) return;
+        System.out.println(node.element);
+        preoederTraversal(node.left);
+        preoederTraversal(node.right);
+    }
+
+    // 中序遍历
+    public void inorderTraversal() {
+        inorderTraversal(root);
+    }
+
+    private void inorderTraversal(Node<E> node) {
+        if (node == null) return;
+        inorderTraversal(node.left);
+        System.out.println(node.element);
+        inorderTraversal(node.right);
+    }
+
+    // 后序遍历
+    public void postorderTraversal() {
+        postorderTraversal(root);
+    }
+
+    public void postorderTraversal(Node<E> node) {
+        if (node == null) return;
+        postorderTraversal(node.left);
+        postorderTraversal(node.right);
+        System.out.println(node.element);
+    }
+
+    // 层序遍历
+    public void levelOrderTranversal() {
+        if (root == null) return;
+
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            Node<E> node = queue.poll();
+            System.out.println(node.element);
+
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+        }
+    }
+
+    public void levelOrderTranversal(Visitor<E> visitor) {
+        if (root == null || visitor == null) return;
+
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            Node<E> node = queue.poll();
+
+            if(visitor.visit(node.element)) return;
+
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+        }
+    }
+
+
+
+    public static interface Visitor<E> {
+
+        boolean visit(E element);
+    }
+
 
     public void remove(E element) {
 
+    }
+
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node<E> node) {
+
+        if (node.left == null || node.right == null) return 0;
+
+        return 1 + Math.max(height(node.left),height(node.right));
+    }
+
+    public int height2() {
+        if (root == null) return 0;
+        int height = 0;
+        int levelSize = 1;
+        Queue<Node<E>> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            Node<E> node = queue.poll();
+
+            levelSize--;
+
+            if (node.left != null) {
+                queue.offer(node.left);
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
+
+            // 即将访问下一层
+            if (levelSize == 0) {
+                levelSize = queue.size();
+                height++;
+            }
+        }
+
+        return height;
+    }
+
+    public boolean isComplete() {
+        if (root == null) return false;
+
+
+        Queue<Node<E>> queue = new LinkedList<>();
+
+        queue.offer(root);
+
+
+        boolean leaf = false;
+        while (!queue.isEmpty()) {
+            Node<E> node = queue.poll();
+
+            if (leaf && !node.isLeaf()) return false;
+
+            if (node.left != null && node.right != null) {
+                queue.offer(node.left);
+                queue.offer(node.right);
+            } else if (node.left == null && node.right != null) {  // 不符合定义
+                return false;
+            } else {  // 后面遍历的节点都必须是叶子节点
+                leaf = true;
+            }
+        }
+        return true;
     }
 
     public boolean contains(E element) {
@@ -129,5 +282,14 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
             this.element = element;
             this.parent = parent;
         }
+
+        public boolean isLeaf() {
+            return left == null && right == null;
+        }
+
+        public boolean hasTwoChildren() {
+            return left != null && right != null;
+        }
+
     }
 }
