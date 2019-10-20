@@ -17,30 +17,30 @@ import java.util.Queue;
 
 public class Practice {
 
-        // 层次遍历
-        public TreeNode invertTree(TreeNode root) {
-            if (root == null) return root;
+    // 层次遍历
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return root;
 
-            Queue<TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
 
-            queue.offer(root);
-            while (!queue.isEmpty()) {
-                TreeNode node = queue.poll();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
 
-                TreeNode tmp = node.left;
-                node.left = node.right;
-                node.right = tmp;
+            TreeNode tmp = node.left;
+            node.left = node.right;
+            node.right = tmp;
 
-                if (node.left != null) {
-                    queue.offer(node.left);
-                }
-
-                if (node.right != null) {
-                    queue.offer(node.right);
-                }
+            if (node.left != null) {
+                queue.offer(node.left);
             }
-            return root;
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            }
         }
+        return root;
+    }
 
     // 前序遍历
     public TreeNode invertTree2(TreeNode root) {
