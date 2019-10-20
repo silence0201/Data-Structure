@@ -223,6 +223,21 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 
             if (leaf && !node.isLeaf()) return false;
 
+            if (node.left != null) {
+                queue.offer(node.left);
+            } else if (node.right != null) {
+                return false;
+            }
+
+            if (node.right != null) {
+                queue.offer(node.right);
+            } else {
+                leaf = true;
+            }
+
+            /*
+            if (leaf && !node.isLeaf()) return false;
+
             if (node.left != null && node.right != null) {
                 queue.offer(node.left);
                 queue.offer(node.right);
@@ -233,7 +248,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
                 if (node.left != null) {
                     queue.offer(node.left);
                 }
-            }
+            }*/
         }
         return true;
     }
