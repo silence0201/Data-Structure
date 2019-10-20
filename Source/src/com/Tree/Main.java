@@ -1,9 +1,6 @@
 package com.Tree;
 
-import com.Tree.Files.Files;
 import com.Tree.printer.BinaryTrees;
-
-import java.io.File;
 import java.util.Comparator;
 
 /**

@@ -2,7 +2,6 @@ package com.Tree;
 
 
 import com.Tree.printer.BinaryTreeInfo;
-import com.Tree.printer.Printer;
 
 import java.util.Comparator;
 import java.util.LinkedList;
