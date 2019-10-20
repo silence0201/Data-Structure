@@ -230,6 +230,9 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
                 return false;
             } else {  // 后面遍历的节点都必须是叶子节点
                 leaf = true;
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
             }
         }
         return true;
