@@ -349,7 +349,7 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
     }
 
     public boolean contains(E element) {
-        return false;
+        return node(element) != null;
     }
 
     private void elementNotNullCheck(E element) {
