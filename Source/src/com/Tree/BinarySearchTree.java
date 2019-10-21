@@ -163,7 +163,61 @@ public class BinarySearchTree<E> implements BinaryTreeInfo {
 
 
     public void remove(E element) {
+        remove(node(element));
+    }
 
+    private void remove(Node<E> node) {
+        if (node == null) return;
+        size--;
+
+        // 度为2的节点
+        if (node.hasTwoChildren()) {
+            // 找到后继节点
+            Node<E> s =  successor(node);
+            // 用后继节点的值覆盖度为2的节点
+            node.element = s.element;
+
+            // 删除后继节点
+            node = s;
+        }
+
+        // 删除node节点(node的度必然是1或者0)
+        Node<E> replacement = node.left != null ? node.left : node.right;
+
+        if (replacement != null) { // node是度为1的节点
+            // 更改parent
+            replacement.parent = node.parent;
+            if (node.parent == null) { // node为度为1,并且是根节点
+                root = replacement;
+            } else if (node == node.parent.left) {
+                node.parent.left = replacement;
+            } else if (node == node.parent.right) {
+                node.parent.right = replacement;
+            }
+        } else if (node.parent == null){ // node是叶子节点并且是根节点
+            root = null;
+        } else {  // 叶子节点,不是根节点
+            if (node == node.parent.right) {
+                node.parent.right = null;
+            } else {
+                node.parent.left = null;
+            }
+        }
+    }
+
+    private Node<E> node(E element) {
+        Node<E> node = root;
+        while (node != null) {
+            int cmp = compart(element,node.element);
+            if (cmp == 0) return node;
+            if (cmp > 0) {
+                node = node.right;
+            } else {
+                node = node.left;
+            }
+        }
+
+        return null;
     }
 
     public int height() {
