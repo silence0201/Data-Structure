@@ -54,6 +54,65 @@ public class AVLTree<E> extends BST<E> {
         return Math.abs(balance) <= 1;
     }
 
+    /**
+     * 恢复平衡
+     * @param grand 高度最低的那个不平衡节点
+     */
+    private void rebalance2(Node<E> grand) {
+        Node<E> parent = ((AVLNode<E>)grand).tallerChild();
+        Node<E> node = ((AVLNode<E>)parent).tallerChild();
+        if (parent.isLeftChild()) { // L
+            if (node.isLeftChild()) { // LL
+                rotate(grand, node, node.right, parent, parent.right, grand);
+            } else { // LR
+                rotate(grand, parent, node.left, node, node.right, grand);
+            }
+        } else { // R
+            if (node.isLeftChild()) { // RL
+                rotate(grand, grand, node.left, node, node.right, parent);
+            } else { // RR
+                rotate(grand, grand, parent.left, parent, node.left, node);
+            }
+        }
+    }
+
+    private void rotate(
+            Node<E> r, // 子树的根节点
+            Node<E> b, Node<E> c,
+            Node<E> d,
+            Node<E> e, Node<E> f) {
+        // 让d成为这棵子树的根节点
+        d.parent = r.parent;
+        if (r.isLeftChild()) {
+            r.parent.left = d;
+        } else if (r.isRightChild()) {
+            r.parent.right = d;
+        } else {
+            root = d;
+        }
+
+        //b-c
+        b.right = c;
+        if (c != null) {
+            c.parent = b;
+        }
+        updateHeight(b);
+
+        // e-f
+        f.left = e;
+        if (e != null) {
+            e.parent = f;
+        }
+        updateHeight(f);
+
+        // b-d-f
+        d.left = b;
+        d.right = f;
+        b.parent = d;
+        f.parent = d;
+        updateHeight(d);
+    }
+
     /*恢复平衡*/
     private void rebalance(Node<E> grand) {
         Node<E> parent = ((AVLNode<E>)grand).tallerChild();
