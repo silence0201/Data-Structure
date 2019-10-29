@@ -61,6 +61,8 @@ public class BST<E> extends BinaryTree<E> {
 		remove(node(element));
 	}
 
+	protected void afterRemove(Node<E> node) {}
+
 	public boolean contains(E element) {
 		return node(element) != null;
 	}
@@ -93,6 +95,9 @@ public class BST<E> extends BinaryTree<E> {
 			} else { // node == node.parent.right
 				node.parent.right = replacement;
 			}
+
+
+
 		} else if (node.parent == null) { // node是叶子节点并且是根节点
 			root = null;
 		} else { // node是叶子节点，但不是根节点
@@ -102,6 +107,9 @@ public class BST<E> extends BinaryTree<E> {
 				node.parent.right = null;
 			}
 		}
+
+		afterAdd(node);
+
 	}
 	
 	private Node<E> node(E element) {
