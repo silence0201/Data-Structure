@@ -68,7 +68,7 @@ public class RBTree<E> extends BBST<E> {
         // 叔父节点
         Node<E> uncle = parent.sibling();
         // 祖父节点
-        Node<E> grand = parent.parent;
+        Node<E> grand = red(parent.parent);
 
         if(isRed(uncle)) { // 叔父节点是红色
             black(parent);
@@ -78,7 +78,6 @@ public class RBTree<E> extends BBST<E> {
         }
         // 叔父节点不是红色
         if (parent.isLeftChild()) { // L
-            red(grand);
             if (node.isLeftChild()) { // LL
                 black(parent);
             } else { // RR
@@ -87,7 +86,6 @@ public class RBTree<E> extends BBST<E> {
             }
             rotateRight(grand);
         } else { // R
-            red(grand);
             if (node.isLeftChild()) { // RL
                 black(node);
                 rotateRight(parent);
