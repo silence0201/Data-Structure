@@ -1,6 +1,7 @@
 package com.Heap;
 
-import com.Tree.Compare.Comparator;
+import java.util.Comparator;
+
 
 /**
  * Project Name:Data-Structure
