@@ -17,8 +17,42 @@ public class BinaryHeap<E> extends AbstractHeap<E> {
 
     public BinaryHeap(Comparator<E> comparator, E[] elements) {
         super(comparator);
-        this.elements = elements;
+        if (elements == null || elements.length == 0) {
+            this.elements = (E[]) new Object[DEFAULT_CAPACITY];
+        } else {
+            int capacity = Math.max(elements.length,DEFAULT_CAPACITY);
+            this.elements = (E[]) new Object[DEFAULT_CAPACITY];
+            size = elements.length;
+            for (int i=0;i<elements.length;i++) {
+                this.elements[i] = elements[i];
+            }
+        }
     }
+
+    private void heapify() {
+        // 自下而上的上滤
+        /*
+        for (int i = 1 ; i < size;i++) {
+            shiftUp(i);
+        }*/
+
+
+        // 自下而上的下滤
+        for (int i = (size >> 1) - 1;i >=0; i--) {
+            shiftDown(i);
+        }
+    }
+
+
+    public BinaryHeap(Comparator<E> comparator) {
+        this(comparator,null);
+    }
+
+    public BinaryHeap() {
+        this(null,null);
+    }
+
+
 
     @Override
     public void clear() {
